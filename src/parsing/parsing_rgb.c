@@ -1,0 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_rgb.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/08 17:43:52 by adoireau          #+#    #+#             */
+/*   Updated: 2025/07/09 19:35:36 by adoireau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/cube3d.h"
+
+static char	*pars_int(char *str, int *nbr)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (!str[i] || !ft_isdigit(str[i]))
+		return (NULL);
+	*nbr = ft_atoi(str + i);
+	if (*nbr < 0 || *nbr > 255)
+		return (NULL);
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	return (str + i);
+}
+
+static int	pars_line(char *str, int tab[3])
+{
+	if (!str || !*str)
+		return (0);
+	str = pars_int(str, &tab[0]);
+	if (!str || !*str)
+		return (0);
+	else if (*str == ',')
+		str++;
+	str = pars_int(str, &tab[1]);
+	if (!str || !*str)
+		return (0);
+	else if (*str == ',')
+		str++;
+	str = pars_int(str, &tab[2]);
+	if (!str || *str)
+		return (0);
+	return (1);
+}
+
+int	pars_rgb(char *str, t_data *data)
+{
+	static int		f = 0;
+	static int		c = 0;
+
+	if (str[0] == 'F' && !f)
+	{
+		f = 1;
+		return (pars_line(str + 1, data->floor));
+	}
+	else if (str[0] == 'C' && !c)
+	{
+		c = 1;
+		return (pars_line(str + 1, data->sky));
+	}
+	else
+		return (0);
+}
