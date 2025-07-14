@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 20:09:30 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 18:58:20 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:00:05 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,10 @@ void	error_message(char *str, int i)
 	ft_putstr_fd("\n", 2);
 	if (i == 1)
 		ft_putstr_fd("Use: ./cube3d <./path/to/file.cub>\n", 2);
+	else if (i == 2)
+		ft_putstr_fd("Define only NO, SO, WE, EA, F, C"
+			"with valid path & map\n", 2);
+	else if (i == 3)
+		ft_putstr_fd("Define close map only with 1, 0 & one NSEW\n", 2);
 	exit (1);
 }

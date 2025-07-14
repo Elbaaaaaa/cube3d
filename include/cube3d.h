@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 19:50:07 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/14 23:30:35 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,31 @@
 # include <math.h>
 # include "../libft/include/libft.h"
 
+typedef struct s_img
+{
+	void	*img;
+	int		width;
+	int		height;
+	char	*addr;
+	int		pixel_bits;
+	int		line_l;
+	int		endian;
+}	t_img;
+
 typedef struct s_map
 {
-	char	*str;
-	int		pos;
+	int				pos;
+	char			*str;
 	struct s_map	*prev;
 	struct s_map	*next;
 }	t_map;
 
 typedef struct s_data
 {
-	char			*n_tex;
-	char			*s_tex;
-	char			*e_tex;
-	char			*w_tex;
+	t_map			*map;
+	t_img			*tex[4];
 	int				sky[3];
 	int				floor[3];
-	t_map			*map;
 	float			x;
 	float			y;
 	float			r;
@@ -48,11 +56,7 @@ typedef struct s_mlx
 {
 	void		*mlx;
 	void		*win;
-	void		*img;
-	char		*addr;
-	int			pixel_bits;
-	int			line_l;
-	int			endian;
+	t_img		*img;
 	t_data		*data;
 }	t_mlx;
 
@@ -73,7 +77,12 @@ int		key_press(int keycode, t_mlx *mlx);
 
 t_data	*get_data(void);
 void	free_data(void);
+void	reset_data(void);
 t_mlx	*get_mlx(void);
 void	free_mlx(void);
+void	reset_mlx(void);
+
+//test
+void	display_texture(int texture_num);
 
 #endif

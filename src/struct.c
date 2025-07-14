@@ -6,14 +6,27 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 19:33:01 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:58:45 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube3d.h"
 
+t_img	*get_img(void)
+{
+	t_img	*img;
+
+	img = malloc(sizeof(t_img));
+	if (!img)
+		return (NULL);
+	img->img = NULL;
+	img->addr = NULL;
+	return (img);
+}
+
 t_data	*get_data(void)
 {
+	int				i;
 	static t_data	*data = NULL;
 
 	if (!data)
@@ -21,34 +34,49 @@ t_data	*get_data(void)
 		data = malloc(sizeof(t_data));
 		if (!data)
 			return (NULL);
-		data->n_tex = NULL;
-		data->s_tex = NULL;
-		data->e_tex = NULL;
-		data->w_tex = NULL;
 		data->map = NULL;
+		i = 0;
+		while (i < 4)
+		{
+			data->tex[i] = get_img();
+			if (!data->tex[i])
+			{
+				while (--i >= 0)
+					free(data->tex[i]);
+				free(data);
+				data = NULL;
+				return (NULL);
+			}
+			i++;
+		}
 	}
 	return (data);
 }
 
 void	free_data(void)
 {
+	int		i;
 	t_data	*data;
+	t_mlx	*mlx;
 
 	data = get_data();
+	mlx = get_mlx();
 	if (data)
 	{
-		if (data->n_tex)
-			free(data->n_tex);
-		if (data->s_tex)
-			free(data->s_tex);
-		if (data->e_tex)
-			free(data->e_tex);
-		if (data->w_tex)
-			free(data->w_tex);
+		i = 0;
+		while (i < 4)
+		{
+			if (data->tex[i])
+			{
+				if (data->tex[i]->img && mlx && mlx->mlx)
+					mlx_destroy_image(mlx->mlx, data->tex[i]->img);
+				free(data->tex[i]);
+			}
+			i++;
+		}
 		if (data->map)
 			free_map(data->map);
 		free(data);
-		data = NULL;
 	}
 }
 
@@ -63,7 +91,12 @@ t_mlx	*get_mlx(void)
 			return (NULL);
 		mlx->mlx = NULL;
 		mlx->win = NULL;
-		mlx->img = NULL;
+		mlx->img = get_img();
+		if (mlx->img == NULL)
+		{
+			free(mlx);
+			return (NULL);
+		}
 		mlx->data = get_data();
 		if (mlx->data == NULL)
 		{
@@ -81,18 +114,21 @@ void	free_mlx(void)
 	mlx = get_mlx();
 	if (mlx)
 	{
+		if (mlx->data)
+			free_data();
 		if (mlx->img)
-			mlx_destroy_image(mlx->mlx, mlx->img);
-		if (mlx->win)
+		{
+			if (mlx->img->img && mlx->mlx)
+				mlx_destroy_image(mlx->mlx, mlx->img->img);
+			free(mlx->img);
+		}
+		if (mlx->win && mlx->mlx)
 			mlx_destroy_window(mlx->mlx, mlx->win);
 		if (mlx->mlx)
 		{
 			mlx_destroy_display(mlx->mlx);
 			free(mlx->mlx);
 		}
-		if (mlx->data)
-			free_data();
 		free(mlx);
-		mlx = NULL;
 	}
 }

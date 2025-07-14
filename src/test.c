@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 17:00:01 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/10 17:16:36 by adoireau         ###   ########.fr       */
+/*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
+/*   Updated: 2025/07/10 17:29:29 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube3d.h"
 
-int	main(int ac, char **av)
+void	display_texture(int texture_num)
 {
 	t_mlx	*mlx;
+	t_img	*texture;
 
-	if (ac != 2)
-		error_message("Wrong number of arguments", 1);
 	mlx = get_mlx();
-	if (!init_mlx(mlx))
-		close_win();
-	parsing(av[1]);
-	mlx_hook(mlx->win, 2, 1, key_press, mlx);
-	mlx_hook(mlx->win, 17, 0, close_win, NULL);
-	mlx_loop(mlx->mlx);
-	return (0);
+	if (texture_num < 1 || texture_num > 4)
+		return ;
+	texture = mlx->data->tex[texture_num - 1];
+	if (!texture || !texture->img)
+		return ;
+	mlx_clear_window(mlx->mlx, mlx->win);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, texture->img, 0, 0);
 }

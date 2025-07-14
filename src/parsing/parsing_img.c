@@ -6,35 +6,47 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:42:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 19:34:40 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:03:24 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 
-/*
-	remplaser char* pour str et data->x_text par s_img
-	tenter le load xmp pour le path
-	si non valide return 0
-*/
+static t_img	*get_target_texture(char *tmp, t_data *data)
+{
+	t_img	*target;
+
+	target = NULL;
+	if (!ft_strncmp(tmp, "NO", 2) && !data->tex[0]->img)
+		target = data->tex[0];
+	else if (!ft_strncmp(tmp, "SO", 2) && !data->tex[1]->img)
+		target = data->tex[1];
+	else if (!ft_strncmp(tmp, "WE", 2) && !data->tex[2]->img)
+		target = data->tex[2];
+	else if (!ft_strncmp(tmp, "EA", 2) && !data->tex[3]->img)
+		target = data->tex[3];
+	return (target);
+}
+
 int	pars_img(char *tmp, t_data *data)
 {
 	char	*str;
-	char	**target;
+	t_img	*target;
 
-	if (!ft_strncmp(tmp, "NO", 2) && !data->n_tex)
-		target = &data->n_tex;
-	else if (!ft_strncmp(tmp, "SO", 2) && !data->s_tex)
-		target = &data->s_tex;
-	else if (!ft_strncmp(tmp, "WE", 2) && !data->w_tex)
-		target = &data->w_tex;
-	else if (!ft_strncmp(tmp, "EA", 2) && !data->e_tex)
-		target = &data->e_tex;
-	else
+	target = get_target_texture(tmp, data);
+	if (!target)
 		return (0);
 	str = ft_strtrim(tmp + 2, " \t");
 	if (!str)
 		return (0);
-	*target = str;
+	target->img = mlx_xpm_file_to_image(get_mlx()->mlx, str,
+			&target->width, &target->height);
+	free(str);
+	if (!target->img)
+		return (0);
+	target->addr = mlx_get_data_addr(target->img, &target->pixel_bits,
+			&target->line_l, &target->endian);
+	if (!target->addr)
+		return (0);
 	return (1);
 }

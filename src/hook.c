@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:39:41 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 19:31:28 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:54:24 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	new_img(t_mlx *mlx)
 {
 	printf("new_img\n");
-	mlx_destroy_image(mlx->mlx, mlx->img);
+	if (mlx && mlx->mlx && mlx->img && mlx->img->img)
+		mlx_destroy_image(mlx->mlx, mlx->img->img);
 	if (make_img() == 0)
 		close_win();
 }
@@ -23,14 +24,13 @@ void	new_img(t_mlx *mlx)
 static void	mv_cara(int keycode, t_mlx *mlx)
 {
 	if (keycode == 119)
-		printf("w : ");
+		display_texture(1);
 	else if (keycode == 115)
-		printf("s : ");
+		display_texture(2);
 	else if (keycode == 97)
-		printf("a : ");
+		display_texture(3);
 	else if (keycode == 100)
-		printf("d : ");
-	new_img(mlx);
+		display_texture(4);
 }
 
 static void	mv_cam(int keycode, t_mlx *mlx)
@@ -44,7 +44,7 @@ static void	mv_cam(int keycode, t_mlx *mlx)
 
 int	key_press(int keycode, t_mlx *mlx)
 {
-	if (mlx->img == NULL)
+	if (mlx->img->img == NULL)
 		return (0);
 	else if (keycode == 65307)
 		close_win();

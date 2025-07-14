@@ -1,8 +1,8 @@
-    NO ./src/texture/north.jpg
+    NO ./src/texture/n.xpm
 
-    SO ./src/texture/south.jpg
-WE./src/texture/west.jpg
-EA    ./src/texture/east.jpg
+    SO ./src/texture/s.xpm
+WE./src/texture/w.xpm
+EA    ./src/texture/e.xpm
 
   F 250,    100,   0
 C 225   ,   30,   0

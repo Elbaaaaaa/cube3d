@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:05:18 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 17:15:50 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:24:46 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	make_img(void)
 	t_mlx			*mlx;
 
 	mlx = get_mlx();
-	mlx->img = mlx_new_image(mlx->mlx, size, size);
-	if (mlx->img == NULL)
+	mlx->img->img = mlx_new_image(mlx->mlx, size, size);
+	if (mlx->img->img == NULL)
 		return (0);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->pixel_bits,
-			&mlx->line_l, &mlx->endian);
+	mlx->img->addr = mlx_get_data_addr(mlx->img->img, &mlx->img->pixel_bits,
+			&mlx->img->line_l, &mlx->img->endian);
 	return (1);
 }
 
@@ -37,7 +37,7 @@ int	init_mlx(t_mlx *mlx)
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == NULL)
 		return (0);
-	mlx->win = mlx_new_window(mlx->mlx, 800, 800, "Fractol");
+	mlx->win = mlx_new_window(mlx->mlx, 800, 800, "Cube3D");
 	if (mlx->win == NULL)
 		return (0);
 	if (make_img() == 0)
