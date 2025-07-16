@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 20:09:10 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 19:17:23 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 12:41:55 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ static void	pars_file(int fd)
 		free(str);
 		close(fd);
 		error_message("Wrong element", 2);
+	}
+	if (!str)
+	{
+		close(fd);
+		error_message("Map is empty", 3);
 	}
 	if (!pars_map(fd, data, &str))
 	{

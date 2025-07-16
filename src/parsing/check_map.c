@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 19:59:34 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 12:47:09 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	check_map(char **map)
 		}
 		y++;
 	}
-	if (map[y] && !check_first_last(map[y]))
+	if ((map[y] && !check_first_last(map[y])) || get_data()->x == 0)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 19:59:48 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 12:49:49 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_img	*get_img(void)
 
 t_data	*get_data(void)
 {
-	int				i;
+	static int		i = 0;
 	static t_data	*data = NULL;
 
 	if (!data)
@@ -35,7 +35,7 @@ t_data	*get_data(void)
 		if (!data)
 			return (NULL);
 		data->map = NULL;
-		i = 0;
+		data->x = 0;
 		while (i < 4)
 		{
 			data->tex[i] = get_img();
