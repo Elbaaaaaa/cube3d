@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/10 17:58:45 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:59:48 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	free_data(void)
 			i++;
 		}
 		if (data->map)
-			free_map(data->map);
+			free_split(data->map);
 		free(data);
 	}
 }

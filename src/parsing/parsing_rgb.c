@@ -6,12 +6,13 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:43:52 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/09 19:35:36 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:49:19 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 
+// check if int is valid and between 0 & 255
 static char	*pars_int(char *str, int *nbr)
 {
 	int	i;
@@ -31,6 +32,7 @@ static char	*pars_int(char *str, int *nbr)
 	return (str + i);
 }
 
+// check if line is valid C 255, 255, 255
 static int	pars_line(char *str, int tab[3])
 {
 	if (!str || !*str)
@@ -51,6 +53,7 @@ static int	pars_line(char *str, int tab[3])
 	return (1);
 }
 
+// check if line start with F or C
 int	pars_rgb(char *str, t_data *data)
 {
 	static int		f = 0;

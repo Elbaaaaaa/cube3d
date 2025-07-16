@@ -6,32 +6,34 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:28:59 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/10 18:01:36 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:33:31 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 
-t_map	*first_line(t_map *map)
-{
-	if (!map)
-		return (NULL);
-	while (map->prev != NULL)
-		map = map->prev;
-	return (map);
-}
-
 void	free_map(t_map *map)
 {
 	if (!map)
 		return ;
-	map = first_line(map);
-	while (map->next != NULL)
+	while (map && map->prev)
+		map = map->prev;
+	while (map && map->next)
 	{
 		map = map->next;
-		free(map->prev);
+		if (map->prev)
+		{
+			if (map->prev->str)
+				free(map->prev->str);
+			free(map->prev);
+			map->prev = NULL;
+		}
 	}
-	free(map);
+	if (map && map->str)
+		free(map->str);
+	if (map)
+		free(map);
+	map = NULL;
 }
 
 static int	check_line(char *str)
@@ -46,6 +48,8 @@ static int	check_line(char *str)
 		i++;
 	if (str[i] && str[i] != '\n')
 		return (0);
+	if (str[i] && str[i] == '\n')
+		str[i] = '\0';
 	return (1);
 }
 
@@ -58,18 +62,12 @@ t_map	*new_mapline(char *str, t_map *prev)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	map->str = str;
+	map->str = ft_strdup(str);
+	if (!map->str)
+		return (free(map), NULL);
 	map->prev = prev;
 	if (prev)
-	{
 		prev->next = map;
-		map->pos = prev->pos + 1;
-	}
-	else
-	{
-		prev = NULL;
-		map->pos = 0;
-	}
 	map->next = NULL;
 	return (map);
 }

@@ -6,33 +6,38 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 20:09:10 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/10 10:36:49 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:17:23 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube3d.h"
 
-// ajouter test map fermee
 static int	pars_map(int fd, t_data *data, char **str)
 {
-	t_map	*new;
+	t_map	*map;
 	t_map	*last;
+	t_map	*new;
+	int		i;
 
+	i = 0;
 	last = NULL;
 	while (*str)
 	{
 		new = new_mapline(*str, last);
 		if (!new)
-			return (0);
+			return (free_map(map), 0);
 		if (last)
 			last->next = new;
 		else
-			data->map = new;
+			map = new;
 		last = new;
 		free(*str);
 		*str = ft_get_next_line(fd);
+		i++;
 	}
-	return (1);
+	if (!init_map_str(data, map, i))
+		return (free_map(map), 0);
+	return (free_map(map), 1);
 }
 
 static int	pars_element(int fd, t_data *data, char **str)
@@ -80,7 +85,6 @@ static void	pars_file(int fd)
 		close(fd);
 		error_message("Invalid map", 3);
 	}
-	free(str);
 	close(fd);
 }
 

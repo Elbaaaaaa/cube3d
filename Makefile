@@ -18,8 +18,9 @@ SRC = ./src/main.c \
 	./src/parsing/parsing_map.c \
 	./src/error.c \
 	./src/struct.c \
-	./src/test.c
-OBJ = $(SRC:%.c=%.o)
+	./src/parsing/check_map.c
+
+	OBJ = $(SRC:%.c=%.o)
 
 LFLAGS = -Wall -Wextra -Werror -g -L$(INC) -lmlx -lXext -lX11 -lm -L$(LIBFT_DIR) -lft
 

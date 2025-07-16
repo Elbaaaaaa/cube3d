@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/14 23:30:35 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:59:09 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_img
 
 typedef struct s_map
 {
-	int				pos;
 	char			*str;
 	struct s_map	*prev;
 	struct s_map	*next;
@@ -43,7 +42,7 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	t_map			*map;
+	char			**map;
 	t_img			*tex[4];
 	int				sky[3];
 	int				floor[3];
@@ -62,11 +61,14 @@ typedef struct s_mlx
 
 void	error_message(char *str, int i);
 
-t_map	*first_line(t_map *map);
+int		init_map_str(t_data *data, t_map *map, int i);
+
 void	free_map(t_map *map);
 t_map	*new_mapline(char *str, t_map *prev);
+
 int		pars_img(char *tmp, t_data *data);
 int		pars_rgb(char *tmp, t_data *data);
+
 void	parsing(char *str);
 
 int		close_win(void);
@@ -81,8 +83,5 @@ void	reset_data(void);
 t_mlx	*get_mlx(void);
 void	free_mlx(void);
 void	reset_mlx(void);
-
-//test
-void	display_texture(int texture_num);
 
 #endif
