@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:39:41 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 17:53:39 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/18 14:14:42 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	new_img(void)
 
 static void	check_mv(float x, float y, t_data *data)
 {
-	if (data->map[(int) y][(int) x] == '0')
+	if (data->map[(int) data->pos[1]][(int) x] == '0')
 		data->pos[0] = x;
-	if (data->map[(int) y][(int) x] == '0')
+	if (data->map[(int) y][(int) data->pos[0]] == '0')
 		data->pos[1] = y;
 }
 
