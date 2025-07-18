@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 19:05:00 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:07:03 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,22 @@ typedef struct s_mlx
 	t_img		*img;
 	t_data		*data;
 }	t_mlx;
+
+typedef struct s_ray
+{
+	int		map_x;
+	int		map_y;
+	float	start_angle;
+	float	angle;
+	float	cos_angle;
+	float	sin_angle;
+	float	dist_x;
+	float	dist_y;
+	int		step_x;
+	int		step_y;
+	float	side_dist_x;
+	float	side_dist_y;
+}	t_ray;
 
 void	error_message(char *str, int i);
 
