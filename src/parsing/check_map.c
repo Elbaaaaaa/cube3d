@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 12:47:09 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:54:18 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	init_spawn(char **map, int y, int x)
 	data = get_data();
 	if (!data)
 		return (0);
-	data->x = x + 0.5;
-	data->y = y + 0.5;
+	data->pos[0] = x + 0.5;
+	data->pos[1] = y + 0.5;
 	if (map[y][x] == 'N')
 		data->r = 0;
 	else if (map[y][x] == 'S')
@@ -43,8 +43,13 @@ static int	check_close_map(char **map, int y, int x, int len)
 	if ((map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E'
 			|| map[y][x] == 'W') && !init_spawn(map, y, x))
 		return (0);
-	if (map[y][x - 1] == ' ' || map[y][x + 1] == ' ' || map[y - 1][x] == ' '
-		|| map[y + 1][x] == ' ')
+	if (!map[y][x - 1] || map[y][x - 1] == ' ')
+		return (0);
+	if (!map[y][x + 1] || map[y][x + 1] == ' ')
+		return (0);
+	if (ft_strlen(map[y - 1]) < x || !map[y - 1][x] || map[y - 1][x] == ' ')
+		return (0);
+	if (ft_strlen(map[y + 1]) < x || !map[y + 1][x] || map[y + 1][x] == ' ')
 		return (0);
 	return (1);
 }
@@ -89,7 +94,7 @@ static int	check_map(char **map)
 		}
 		y++;
 	}
-	if ((map[y] && !check_first_last(map[y])) || get_data()->x == 0)
+	if ((map[y] && !check_first_last(map[y])) || get_data()->pos[0] == 0)
 		return (0);
 	return (1);
 }

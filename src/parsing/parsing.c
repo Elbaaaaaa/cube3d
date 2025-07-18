@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 20:09:10 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 12:41:55 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:54:56 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	pars_map(int fd, t_data *data, char **str)
 
 	i = 0;
 	last = NULL;
+	map = NULL;
 	while (*str)
 	{
 		new = new_mapline(*str, last);

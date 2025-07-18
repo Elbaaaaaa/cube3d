@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 12:49:49 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:54:27 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_data	*get_data(void)
 		if (!data)
 			return (NULL);
 		data->map = NULL;
-		data->x = 0;
+		data->pos[0] = 0;
 		while (i < 4)
 		{
 			data->tex[i] = get_img();

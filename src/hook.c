@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:39:41 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 20:00:04 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:53:39 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	new_img(void)
 static void	check_mv(float x, float y, t_data *data)
 {
 	if (data->map[(int) y][(int) x] == '0')
-		data->x = x;
+		data->pos[0] = x;
 	if (data->map[(int) y][(int) x] == '0')
-		data->y = y;
+		data->pos[1] = y;
 }
 
 static void	mv_cara(int keycode, t_data *data)
@@ -38,23 +38,23 @@ static void	mv_cara(int keycode, t_data *data)
 
 	if (keycode == 119)
 	{
-		x = data->x + cos(data->r) * 0.1;
-		y = data->y + sin(data->r) * 0.1;
+		x = data->pos[0] + cos(data->r) * 0.1;
+		y = data->pos[1] + sin(data->r) * 0.1;
 	}
 	else if (keycode == 115)
 	{
-		x = data->x - cos(data->r) * 0.1;
-		y = data->y - sin(data->r) * 0.1;
+		x = data->pos[0] - cos(data->r) * 0.1;
+		y = data->pos[1] - sin(data->r) * 0.1;
 	}
 	else if (keycode == 97)
 	{
-		x = data->x + sin(data->r) * 0.1;
-		y = data->y - cos(data->r) * 0.1;
+		x = data->pos[0] + sin(data->r) * 0.1;
+		y = data->pos[1] - cos(data->r) * 0.1;
 	}
 	else if (keycode == 100)
 	{
-		x = data->x - sin(data->r) * 0.1;
-		y = data->y + cos(data->r) * 0.1;
+		x = data->pos[0] - sin(data->r) * 0.1;
+		y = data->pos[1] + cos(data->r) * 0.1;
 	}
 	check_mv(x, y, data);
 	new_img();

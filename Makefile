@@ -18,7 +18,9 @@ SRC = ./src/main.c \
 	./src/parsing/parsing_map.c \
 	./src/error.c \
 	./src/struct.c \
-	./src/parsing/check_map.c
+	./src/parsing/check_map.c \
+	./src/print_img.c \
+	./src/print_map.c
 
 	OBJ = $(SRC:%.c=%.o)
 

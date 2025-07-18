@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 19:59:09 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:05:00 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ typedef struct s_data
 {
 	char			**map;
 	t_img			*tex[4];
-	int				sky[3];
-	int				floor[3];
-	float			x;
-	float			y;
+	int				sky;
+	int				floor;
+	float			pos[2];
 	float			r;
+	int				size;
 }	t_data;
 
 typedef struct s_mlx
@@ -62,20 +62,22 @@ typedef struct s_mlx
 void	error_message(char *str, int i);
 
 int		init_map_str(t_data *data, t_map *map, int i);
-
 void	free_map(t_map *map);
 t_map	*new_mapline(char *str, t_map *prev);
-
 int		pars_img(char *tmp, t_data *data);
 int		pars_rgb(char *tmp, t_data *data);
-
 void	parsing(char *str);
 
+int		get_pixel(t_img *img, int x, int y);
+void	set_pixel(t_img *img, int x, int y, int color);
 int		close_win(void);
 int		make_img(void);
 int		init_mlx(t_mlx *mlx);
 
 int		key_press(int keycode, t_mlx *mlx);
+
+void	print_img(t_mlx *mlx);
+void	draw_map(t_data *data, t_img *img);
 
 t_data	*get_data(void);
 void	free_data(void);

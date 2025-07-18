@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:43:52 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 11:49:19 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:39:54 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ static char	*pars_int(char *str, int *nbr)
 }
 
 // check if line is valid C 255, 255, 255
-static int	pars_line(char *str, int tab[3])
+static int	pars_line(char *str, int *color)
 {
+	int	tab[3];
+
 	if (!str || !*str)
 		return (0);
 	str = pars_int(str, &tab[0]);
@@ -50,6 +52,7 @@ static int	pars_line(char *str, int tab[3])
 	str = pars_int(str, &tab[2]);
 	if (!str || *str)
 		return (0);
+	*color = ((tab[0] << 16) | (tab[1] << 8) | tab[2]);
 	return (1);
 }
 
@@ -62,12 +65,12 @@ int	pars_rgb(char *str, t_data *data)
 	if (str[0] == 'F' && !f)
 	{
 		f = 1;
-		return (pars_line(str + 1, data->floor));
+		return (pars_line(str + 1, &data->floor));
 	}
 	else if (str[0] == 'C' && !c)
 	{
 		c = 1;
-		return (pars_line(str + 1, data->sky));
+		return (pars_line(str + 1, &data->sky));
 	}
 	else
 		return (0);

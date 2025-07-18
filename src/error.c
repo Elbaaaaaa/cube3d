@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 20:09:30 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/15 12:43:24 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/16 14:53:39 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	error_message(char *str, int i)
 {
 	ft_get_next_line(-2);
 	free_mlx();
-	ft_putstr_fd("error: ", 2);
+	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
 	if (i == 1)
