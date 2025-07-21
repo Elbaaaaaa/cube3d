@@ -6,22 +6,11 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:39:41 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/18 14:14:42 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:54:37 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube3d.h"
-
-void	new_img(void)
-{
-	t_mlx	*mlx;
-
-	mlx = get_mlx();
-	if (mlx && mlx->mlx && mlx->img && mlx->img->img)
-		mlx_destroy_image(mlx->mlx, mlx->img->img);
-	if (make_img() == 0)
-		close_win();
-}
 
 static void	check_mv(float x, float y, t_data *data)
 {
@@ -57,7 +46,7 @@ static void	mv_cara(int keycode, t_data *data)
 		y = data->pos[1] + cos(data->r) * 0.1;
 	}
 	check_mv(x, y, data);
-	new_img();
+	make_img();
 }
 
 static void	mv_cam(int keycode, t_data *data)
@@ -76,7 +65,7 @@ static void	mv_cam(int keycode, t_data *data)
 		if (data->r > (2 * pi))
 			data->r = data->r - (2 * pi);
 	}
-	new_img();
+	make_img();
 }
 
 int	key_press(int keycode, t_mlx *mlx)

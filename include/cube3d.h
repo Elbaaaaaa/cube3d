@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/18 18:07:03 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:41:56 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # include <math.h>
 # include "../libft/include/libft.h"
 
+typedef struct s_map
+{
+	char			*str;
+	struct s_map	*prev;
+	struct s_map	*next;
+}	t_map;
+
 typedef struct s_img
 {
 	void	*img;
@@ -33,13 +40,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_map
-{
-	char			*str;
-	struct s_map	*prev;
-	struct s_map	*next;
-}	t_map;
-
 typedef struct s_data
 {
 	char			**map;
@@ -48,7 +48,6 @@ typedef struct s_data
 	int				floor;
 	float			pos[2];
 	float			r;
-	int				size;
 }	t_data;
 
 typedef struct s_mlx
@@ -63,7 +62,6 @@ typedef struct s_ray
 {
 	int		map_x;
 	int		map_y;
-	float	start_angle;
 	float	angle;
 	float	cos_angle;
 	float	sin_angle;
@@ -73,6 +71,10 @@ typedef struct s_ray
 	int		step_y;
 	float	side_dist_x;
 	float	side_dist_y;
+	int		x;
+	int		side;
+	int		wall_top;
+	int		wall_bottom;
 }	t_ray;
 
 void	error_message(char *str, int i);
@@ -87,13 +89,12 @@ void	parsing(char *str);
 int		get_pixel(t_img *img, int x, int y);
 void	set_pixel(t_img *img, int x, int y, int color);
 int		close_win(void);
-int		make_img(void);
+void	make_img(void);
 int		init_mlx(t_mlx *mlx);
 
 int		key_press(int keycode, t_mlx *mlx);
 
-void	print_img(t_mlx *mlx);
-void	draw_map(t_data *data, t_img *img);
+void	draw_recast(t_data *data, t_img *img);
 
 t_data	*get_data(void);
 void	free_data(void);
