@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/21 15:41:56 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:27:05 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_ray
 	float	side_dist_y;
 	int		x;
 	int		side;
+	float	wall_x;
 	int		wall_top;
 	int		wall_bottom;
 }	t_ray;
@@ -94,6 +95,7 @@ int		init_mlx(t_mlx *mlx);
 
 int		key_press(int keycode, t_mlx *mlx);
 
+void	draw_wall(t_data *data, t_img *img, t_ray *ray, int side);
 void	draw_recast(t_data *data, t_img *img);
 
 t_data	*get_data(void);
