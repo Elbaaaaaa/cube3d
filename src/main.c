@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:01 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 15:46:32 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:07:25 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	main(int ac, char **av)
 	mlx = get_mlx();
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == NULL)
+	{
+		free_mlx();
 		return (0);
+	}
 	parsing(av[1]);
 	if (!init_mlx(mlx))
 		close_win();
