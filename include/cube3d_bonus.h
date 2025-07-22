@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 16:34:52 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:54:47 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_ray
 	float	wall_x;
 	int		wall_top;
 	int		wall_bottom;
+	float	wall_dis;
 }	t_ray;
 
 void	error_message(char *str, int i);

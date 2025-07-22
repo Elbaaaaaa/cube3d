@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:01:49 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 16:34:00 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:48:25 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 static void	dda(t_data *data, t_img *img, t_ray *ray, int screen_x)
 {
 	int	side;
+	int	i;
 
+	i = 0;
 	while (data->map[ray->map_y] && data->map[ray->map_y][ray->map_x]
-			&& data->map[ray->map_y][ray->map_x] == '0')
+			&& data->map[ray->map_y][ray->map_x] == '0' && i++ < 13)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{

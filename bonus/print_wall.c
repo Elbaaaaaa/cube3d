@@ -6,11 +6,36 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:25:57 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 16:34:04 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:58:02 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube3d_bonus.h"
+
+static int	calc_fade(t_ray *ray, t_img *img, int i, int color)
+{
+	int		r;
+	int		g;
+	int		b;
+	float	fade;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	if (i < ray->wall_top || i > ray->wall_bottom)
+		fade = fabsf((float)(img->height / 2 - i) / (img->height / 2));
+	else
+	{
+		if (ray->wall_dis > 7)
+			ray->wall_dis = 7;
+		fade = (7 - ray->wall_dis) / 7;
+	}
+	r *= fade;
+	g *= fade;
+	b *= fade;
+	color = (r << 16) | (g << 8) | b;
+	return (color);
+}
 
 static int	print_texture(t_ray *ray, float y, t_img *img)
 {
@@ -28,48 +53,49 @@ static int	print_texture(t_ray *ray, float y, t_img *img)
 static void	print_wall(t_data *data, t_img *img, t_ray *ray, int side)
 {
 	int		i;
+	int		color;
 
-	i = 0;
-	while (i < img->height)
+	i = -1;
+	while (++i < img->height)
 	{
 		if (i < ray->wall_top)
-			set_pixel(img, ray->x, i, data->sky);
+			color = data->sky;
 		else if (i > ray->wall_bottom)
-			set_pixel(img, ray->x, i, data->floor);
+			color = data->floor;
 		else
 		{
 			if (side == 0 && ray->cos_angle < 0)
-				set_pixel(img, ray->x, i, print_texture(ray, i, data->tex[2]));
+				color = print_texture(ray, i, data->tex[2]);
 			else if (side == 0)
-				set_pixel(img, ray->x, i, print_texture(ray, i, data->tex[3]));
+				color = print_texture(ray, i, data->tex[3]);
 			else if (ray->sin_angle < 0)
-				set_pixel(img, ray->x, i, print_texture(ray, i, data->tex[0]));
+				color = print_texture(ray, i, data->tex[0]);
 			else
-				set_pixel(img, ray->x, i, print_texture(ray, i, data->tex[1]));
+				color = print_texture(ray, i, data->tex[1]);
 		}
-		i++;
+		color = calc_fade(ray, img, i, color);
+		set_pixel(img, ray->x, i, color);
 	}
 }
 
 void	draw_wall(t_data *data, t_img *img, t_ray *ray, int side)
 {
-	float	wall_dis;
 	int		wall_height;
 
 	if (side == 0)
-		wall_dis = (ray->map_x - data->pos[0] + (1 - ray->step_x) / 2.0f)
+		ray->wall_dis = (ray->map_x - data->pos[0] + (1 - ray->step_x) / 2.0f)
 			/ ray->cos_angle;
 	else
-		wall_dis = (ray->map_y - data->pos[1] + (1 - ray->step_y) / 2.0f)
+		ray->wall_dis = (ray->map_y - data->pos[1] + (1 - ray->step_y) / 2.0f)
 			/ ray->sin_angle;
-	if (wall_dis <= 0)
-		wall_dis = 1.0f;
+	if (ray->wall_dis <= 0)
+		ray->wall_dis = 1.0f;
 	if (side == 0)
-		ray->wall_x = data->pos[1] + wall_dis * ray->sin_angle;
+		ray->wall_x = data->pos[1] + ray->wall_dis * ray->sin_angle;
 	else
-		ray->wall_x = data->pos[0] + wall_dis * ray->cos_angle;
+		ray->wall_x = data->pos[0] + ray->wall_dis * ray->cos_angle;
 	ray->wall_x -= floorf(ray->wall_x);
-	wall_height = (int)(img->height / wall_dis);
+	wall_height = (int)(img->height / ray->wall_dis);
 	ray->wall_top = (img->height / 2) - (wall_height / 2);
 	ray->wall_bottom = (img->height / 2) + (wall_height / 2);
 	print_wall(data, img, ray, side);
