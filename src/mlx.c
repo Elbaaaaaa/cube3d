@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:05:18 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/21 15:09:25 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:04:34 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	make_img(void)
 
 int	init_mlx(t_mlx *mlx)
 {
-	const int	size = 800;
+	const int	size = 1200;
 
 	mlx->win = mlx_new_window(mlx->mlx, size, size, "Cube3D");
 	if (mlx->win == NULL)

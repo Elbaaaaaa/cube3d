@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/18 18:28:18 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:41:10 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static int	init_spawn(char **map, int y, int x)
 		data->r = 0;
 	else if (map[y][x] == 'W')
 		data->r = pi;
-	else if (map[y][x] == 'N')
-		data->r = pi / 2;
 	else if (map[y][x] == 'S')
+		data->r = pi / 2;
+	else if (map[y][x] == 'N')
 		data->r = (3 * pi) / 2;
 	map[y][x] = '0';
 	return (1);
