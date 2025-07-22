@@ -1,8 +1,8 @@
-    NO ./src/texture/n.xpm
+    NO ./textures/doom/n.xpm
 
-    SO ./src/texture/s.xpm
-WE./src/texture/w.xpm
-EA    ./src/texture/e.xpm
+    SO ./textures/doom/s.xpm
+WE ./textures/doom/w.xpm
+EA    ./textures/doom/e.xpm
 
   F 20,    20,   20
 C 50   ,   50,   50
