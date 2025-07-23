@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 16:34:08 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:26:02 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,10 @@ t_mlx	*get_mlx(void)
 		mlx->mlx = NULL;
 		mlx->win = NULL;
 		mlx->img = get_img();
-		if (mlx->img == NULL)
-		{
-			free(mlx);
-			return (NULL);
-		}
 		mlx->data = get_data();
-		if (mlx->data == NULL)
+		if (mlx->img == NULL || mlx->data == NULL)
 		{
-			free(mlx);
+			free_mlx();
 			return (NULL);
 		}
 	}
@@ -122,6 +117,7 @@ void	free_mlx(void)
 				mlx_destroy_image(mlx->mlx, mlx->img->img);
 			free(mlx->img);
 		}
+		free_weapon();
 		if (mlx->win && mlx->mlx)
 			mlx_destroy_window(mlx->mlx, mlx->win);
 		if (mlx->mlx)

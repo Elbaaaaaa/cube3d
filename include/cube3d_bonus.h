@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 18:54:47 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:36:34 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_mlx
 	void		*mlx;
 	void		*win;
 	t_img		*img;
+	t_img		*weapon[2];
 	t_data		*data;
 }	t_mlx;
 
@@ -88,6 +89,7 @@ int		pars_img(char *tmp, t_data *data);
 int		pars_rgb(char *tmp, t_data *data);
 void	parsing(char *str);
 
+t_img	*get_img(void);
 int		get_pixel(t_img *img, int x, int y);
 void	set_pixel(t_img *img, int x, int y, int color);
 int		close_win(void);
@@ -99,10 +101,14 @@ int		key_press(int keycode, t_mlx *mlx);
 void	draw_wall(t_data *data, t_img *img, t_ray *ray, int side);
 void	draw_recast(t_data *data, t_img *img);
 void	draw_map(t_data *data, t_img *img);
+void	draw_weapon(t_mlx *mlx);
+
 
 t_data	*get_data(void);
 void	free_data(void);
 void	reset_data(void);
+void	free_weapon(void);
+int		set_weapon(void);
 t_mlx	*get_mlx(void);
 void	free_mlx(void);
 void	reset_mlx(void);

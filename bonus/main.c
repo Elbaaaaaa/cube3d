@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:01 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 16:33:28 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:13:24 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 		error_message("Wrong number of arguments", 1);
 	mlx = get_mlx();
 	mlx->mlx = mlx_init();
-	if (mlx->mlx == NULL)
+	if (mlx->mlx == NULL || set_weapon() == 0)
 	{
 		free_mlx();
 		return (0);

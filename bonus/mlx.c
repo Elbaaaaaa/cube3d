@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:05:18 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 16:35:04 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:57:23 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	make_img(void)
 	mlx = get_mlx();
 	draw_recast(mlx->data, mlx->img);
 	draw_map(mlx->data, mlx->img);
+	draw_weapon(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img->img, 0, 0);
 }
 
 int	init_mlx(t_mlx *mlx)
 {
-	const int	size = 1200;
+	const int	size = 800;
 
 	mlx->win = mlx_new_window(mlx->mlx, size, size, "Cube3D");
 	if (mlx->win == NULL)

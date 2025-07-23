@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/16 17:54:27 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:58:07 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,17 @@ t_mlx	*get_mlx(void)
 			return (NULL);
 		mlx->mlx = NULL;
 		mlx->win = NULL;
+		mlx->data = NULL;
 		mlx->img = get_img();
 		if (mlx->img == NULL)
 		{
-			free(mlx);
+			free_mlx();
 			return (NULL);
 		}
 		mlx->data = get_data();
 		if (mlx->data == NULL)
 		{
-			free(mlx);
+			free_mlx();
 			return (NULL);
 		}
 	}
