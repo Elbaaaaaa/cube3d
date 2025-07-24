@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 18:05:12 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/23 19:00:18 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:20:34 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int	define_size(t_data *data, t_img *img)
 {
 	static int	size = 0;
-	int len;
-	int i;
+	int			len;
+	int			i;
 
 	if (size == 0)
 	{
@@ -39,9 +39,8 @@ static int	define_size(t_data *data, t_img *img)
 static void	draw_cube(int x, int y, int color, t_data *data)
 {
 	const int	size = define_size(NULL, NULL);
-	t_img	*img;
-	int		w;
-	int		h;
+	t_img		*img;
+	int			w;
 
 	img = get_mlx()->img;
 	x *= size;
@@ -67,9 +66,9 @@ static void	draw_cube(int x, int y, int color, t_data *data)
 static void	draw_cara(float x, float y, int color)
 {
 	const int	size = define_size(NULL, NULL);
-	t_img	*img;
-	int	i;
-	int	j;
+	t_img		*img;
+	int			i;
+	int			j;
 
 	x *= size;
 	y *= size;
@@ -91,8 +90,8 @@ static void	draw_cara(float x, float y, int color)
 void	draw_map(t_data *data, t_img *img)
 {
 	const int	size = define_size(data, img);
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 
 	y = 1;
 	while (data->map[y + 1])

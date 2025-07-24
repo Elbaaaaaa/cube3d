@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 21:00:31 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/23 22:12:54 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:17:04 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	set_weapon(void)
 {
-	t_mlx	*mlx;
-	static char *str[2] = {"./bonus/gun.xpm", "./bonus/gunf.xpm"};
-	int		i;
+	t_mlx		*mlx;
+	static char	*str[2] = {"./bonus/gun2.xpm", "./bonus/gunf2.xpm"};
+	int			i;
 
 	mlx = get_mlx();
 	mlx->weapon[0] = get_img();
@@ -26,11 +26,13 @@ int	set_weapon(void)
 	i = 0;
 	while (i < 2)
 	{
-		printf("%s\n", str[i]);
-		mlx->weapon[i]->img = mlx_xpm_file_to_image(mlx->mlx, str[i], &mlx->weapon[i]->width, &mlx->weapon[i]->height);
+		mlx->weapon[i]->img = mlx_xpm_file_to_image(mlx->mlx, str[i],
+				&mlx->weapon[i]->width, &mlx->weapon[i]->height);
 		if (!mlx->weapon[i]->img)
 			error_message("weapon file", 0);
-		mlx->weapon[i]->addr = mlx_get_data_addr(mlx->weapon[i]->img, &mlx->weapon[i]->pixel_bits, &mlx->weapon[i]->line_l, &mlx->weapon[i]->endian);
+		mlx->weapon[i]->addr = mlx_get_data_addr(mlx->weapon[i]->img,
+				&mlx->weapon[i]->pixel_bits, &mlx->weapon[i]->line_l,
+				&mlx->weapon[i]->endian);
 		if (!mlx->weapon[i]->addr)
 			error_message("weapon data", 0);
 		i++;
@@ -57,31 +59,25 @@ void	free_weapon(void)
 	}
 }
 
-void	draw_weapon(t_mlx *mlx)
+void	draw_weapon(t_img *img, t_img *weapon)
 {
-	int x;
-	int y;
-	int color;
-	int w;
-	int h;
+	int			x;
+	int			y;
+	int			color;
+	const int	w = (img->width / 2) - (weapon->width / 2);
+	const int	h = img->height - (weapon->height * 0.8);
 
 	y = 0;
-	h = 0;
-	while (y < mlx->weapon[0]->height && y + h < mlx->img->height)
+	while (y < weapon->height && y + h < img->height)
 	{
 		x = 0;
-		h = mlx->img->height - (mlx->weapon[0]->height * 4 / 5);
-		while (x < mlx->weapon[0]->width)
+		while (x < weapon->width)
 		{
-			color = 0xFFFFFF;
-			color = get_pixel(mlx->weapon[0], x, y);
+			color = get_pixel(weapon, x, y);
 			if (color != 0xFFFFFF)
-			{
-				set_pixel(mlx->img, x + (mlx->img->width / 2) - (mlx->weapon[0]->width / 2), y + h, color);
-			}
+				set_pixel(img, x + w, y + h, color);
 			x++;
 		}
 		y++;
 	}
-
 }

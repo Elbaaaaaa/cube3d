@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:05:18 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/23 21:57:23 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:11:02 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	get_pixel(t_img *img, int x, int y)
 {
+	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+		return (0);
 	return (*(int *)(img->addr
 		+ (y * img->line_l)
 		+ (x * (img->pixel_bits / 8))));
@@ -21,6 +23,8 @@ int	get_pixel(t_img *img, int x, int y)
 
 void	set_pixel(t_img *img, int x, int y, int color)
 {
+	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+		return ;
 	*(int *)(img->addr
 			+ (y * img->line_l)
 			+ (x * (img->pixel_bits / 8)))
@@ -40,7 +44,7 @@ void	make_img(void)
 	mlx = get_mlx();
 	draw_recast(mlx->data, mlx->img);
 	draw_map(mlx->data, mlx->img);
-	draw_weapon(mlx);
+	draw_weapon(mlx->img, mlx->weapon[mlx->fire]);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img->img, 0, 0);
 }
 

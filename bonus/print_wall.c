@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:25:57 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/22 18:58:02 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:25:21 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static int	calc_fade(t_ray *ray, t_img *img, int i, int color)
 	int		g;
 	int		b;
 	float	fade;
+	t_mlx	*mlx;
 
+	mlx = get_mlx();
 	r = (color >> 16) & 0xFF;
 	g = (color >> 8) & 0xFF;
 	b = color & 0xFF;
@@ -30,9 +32,9 @@ static int	calc_fade(t_ray *ray, t_img *img, int i, int color)
 			ray->wall_dis = 7;
 		fade = (7 - ray->wall_dis) / 7;
 	}
-	r *= fade;
-	g *= fade;
-	b *= fade;
+	r *= fade * (mlx->fire + 1);
+	g *= fade * (mlx->fire * 0.5 + 1);
+	b *= fade * (mlx->fire * 0.2 + 1);
 	color = (r << 16) | (g << 8) | b;
 	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/23 21:36:34 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:12:13 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
+# include <sys/time.h>
 # include "../libft/include/libft.h"
 
 typedef struct s_map
@@ -56,6 +57,8 @@ typedef struct s_mlx
 	void		*win;
 	t_img		*img;
 	t_img		*weapon[2];
+	int			fire;
+	int			mv_weapon[2];
 	t_data		*data;
 }	t_mlx;
 
@@ -98,10 +101,13 @@ int		init_mlx(t_mlx *mlx);
 
 int		key_press(int keycode, t_mlx *mlx);
 
+long	get_current_time(void);
+int		render_loop(void *param);
+
 void	draw_wall(t_data *data, t_img *img, t_ray *ray, int side);
 void	draw_recast(t_data *data, t_img *img);
 void	draw_map(t_data *data, t_img *img);
-void	draw_weapon(t_mlx *mlx);
+void	draw_weapon(t_img *img, t_img *weapon);
 
 
 t_data	*get_data(void);
