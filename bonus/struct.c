@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:11:55 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:54:51 by ebella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	free_data(void)
 t_mlx	*get_mlx(void)
 {
 	static t_mlx	*mlx = NULL;
+	int index;
 
+	index = 0;
 	if (!mlx)
 	{
 		mlx = malloc(sizeof(t_mlx));
@@ -93,14 +95,14 @@ t_mlx	*get_mlx(void)
 		mlx->win = NULL;
 		mlx->img = get_img();
 		mlx->data = get_data();
+		if (mlx->img == NULL || mlx->data == NULL)
+			return (free_mlx(), NULL);
+		while (index < 6)
+			mlx->keys[index++] = 0;
 		mlx->fire = 0;
+		mlx->fire_animation = 0;
 		mlx->mv_weapon[0] = 0;
 		mlx->mv_weapon[1] = 0;
-		if (mlx->img == NULL || mlx->data == NULL)
-		{
-			free_mlx();
-			return (NULL);
-		}
 	}
 	return (mlx);
 }

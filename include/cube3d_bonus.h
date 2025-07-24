@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:54 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:12:13 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:59:53 by ebella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ typedef struct s_mlx
 	t_img		*img;
 	t_img		*weapon[2];
 	int			fire;
+	int			fire_animation;
 	int			mv_weapon[2];
 	t_data		*data;
+	int			keys[6];
 }	t_mlx;
 
 typedef struct s_ray
@@ -100,6 +102,14 @@ void	make_img(void);
 int		init_mlx(t_mlx *mlx);
 
 int		key_press(int keycode, t_mlx *mlx);
+int		key_release(int keycode, t_mlx *mlx);
+int		handle_loop(t_mlx *mlx);
+int		mouse_press(int button, int x, int y, t_mlx *mlx);
+
+int		get_key_index(int keycode);
+void	mv_cara(t_data *data);
+void	mv_cam(t_data *data);
+void	trigger_fire(t_mlx *mlx);
 
 long	get_current_time(void);
 int		render_loop(void *param);

@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:39:41 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:54:32 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:59:51 by ebella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube3d_bonus.h"
+
+int	get_key_index(int keycode)
+{
+	if (keycode == 119)
+		return (0);
+	else if (keycode == 97)
+		return (1);
+	else if (keycode == 115)
+		return (2);
+	else if (keycode == 100)
+		return (3);
+	else if (keycode == 65361)
+		return (4);
+	else if (keycode == 65363)
+		return (5);
+	return (-1);
+}
 
 static void	check_mv(float x, float y, t_data *data)
 {
@@ -20,71 +37,67 @@ static void	check_mv(float x, float y, t_data *data)
 		data->pos[1] = y;
 }
 
-static void	mv_cara(int keycode, t_data *data)
+void	mv_cara(t_data *data)
 {
 	float	x;
 	float	y;
+	t_mlx	*mlx;
 
-	if (keycode == 119)
+	mlx = get_mlx();
+	if (!mlx)
+		return ;
+	if (mlx->keys[0])
 	{
-		x = data->pos[0] + cos(data->r) * 0.1;
-		y = data->pos[1] + sin(data->r) * 0.1;
+		x = data->pos[0] + cos(data->r) * 0.02;
+		y = data->pos[1] + sin(data->r) * 0.02;
 	}
-	else if (keycode == 115)
+	if (mlx->keys[2])
 	{
-		x = data->pos[0] - cos(data->r) * 0.1;
-		y = data->pos[1] - sin(data->r) * 0.1;
+		x = data->pos[0] - cos(data->r) * 0.02;
+		y = data->pos[1] - sin(data->r) * 0.02;
 	}
-	else if (keycode == 97)
+	if (mlx->keys[1])
 	{
-		x = data->pos[0] + sin(data->r) * 0.1;
-		y = data->pos[1] - cos(data->r) * 0.1;
+		x = data->pos[0] + sin(data->r) * 0.02;
+		y = data->pos[1] - cos(data->r) * 0.02;
 	}
-	else if (keycode == 100)
+	if (mlx->keys[3])
 	{
-		x = data->pos[0] - sin(data->r) * 0.1;
-		y = data->pos[1] + cos(data->r) * 0.1;
+		x = data->pos[0] - sin(data->r) * 0.02;
+		y = data->pos[1] + cos(data->r) * 0.02;
 	}
 	check_mv(x, y, data);
-	make_img();
 }
 
-static void	mv_cam(int keycode, t_data *data)
+void	mv_cam(t_data *data)
 {
 	const float	pi = 3.14159265358979323846;
+	t_mlx		*mlx;
 
-	if (keycode == 65361)
+	mlx = get_mlx();
+	if (!mlx)
+		return ;
+	if (mlx->keys[4])
 	{
-		data->r -= 0.1;
+		data->r -= 0.02;
 		if (data->r < 0)
 			data->r = data->r + (2 * pi);
 	}
-	else if (keycode == 65363)
+	if (mlx->keys[5])
 	{
-		data->r += 0.1;
+		data->r += 0.02;
 		if (data->r > (2 * pi))
 			data->r = data->r - (2 * pi);
 	}
-	make_img();
 }
 
-int	key_press(int keycode, t_mlx *mlx)
+void	trigger_fire(t_mlx *mlx)
 {
-	if (mlx->img->img == NULL)
-		return (0);
-	else if (keycode == 65307)
-		close_win();
-	else if (keycode == 119 || keycode == 115
-		|| keycode == 97 || keycode == 100)
-		mv_cara(keycode, mlx->data);
-	else if (keycode == 65361 || keycode == 65363)
-		mv_cam(keycode, mlx->data);
-	else if (keycode == 32)
+	if (mlx->fire_animation <= 0)
 	{
-		mlx->fire = (mlx->fire + 1) % 2;
-		mlx->mv_weapon[0] = mlx->fire * 10;
+		mlx->fire = 1;
+		mlx->fire_animation = 20;
+		mlx->mv_weapon[0] = 10;
 		mlx->mv_weapon[1] = 0;
-		make_img();
 	}
-	return (1);
 }

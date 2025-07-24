@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:01 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/23 21:13:24 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:55:22 by ebella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	main(int ac, char **av)
 	if (!init_mlx(mlx))
 		close_win();
 	mlx_hook(mlx->win, 2, 1, key_press, mlx);
+	mlx_hook(mlx->win, 3, 2, key_release, mlx);
+	mlx_hook(mlx->win, 4, 4, mouse_press, mlx);
 	mlx_hook(mlx->win, 17, 0, close_win, NULL);
+	mlx_loop_hook(mlx->mlx, handle_loop, mlx);
 	mlx_loop(mlx->mlx);
 	return (0);
 }
