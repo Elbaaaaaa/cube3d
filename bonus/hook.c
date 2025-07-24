@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:39:41 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:12:38 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:54:32 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,12 @@ int	key_press(int keycode, t_mlx *mlx)
 		mv_cara(keycode, mlx->data);
 	else if (keycode == 65361 || keycode == 65363)
 		mv_cam(keycode, mlx->data);
+	else if (keycode == 32)
+	{
+		mlx->fire = (mlx->fire + 1) % 2;
+		mlx->mv_weapon[0] = mlx->fire * 10;
+		mlx->mv_weapon[1] = 0;
+		make_img();
+	}
 	return (1);
 }

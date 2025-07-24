@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 21:00:31 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:17:04 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:55:14 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	draw_weapon(t_img *img, t_img *weapon)
 	int			x;
 	int			y;
 	int			color;
-	const int	w = (img->width / 2) - (weapon->width / 2);
-	const int	h = img->height - (weapon->height * 0.8);
+	const int	w = (img->width / 2) - (weapon->width / 2) - get_mlx()->mv_weapon[1];
+	const int	h = img->height - (weapon->height * 0.8) - get_mlx()->mv_weapon[0];
 
 	y = 0;
 	while (y < weapon->height && y + h < img->height)
