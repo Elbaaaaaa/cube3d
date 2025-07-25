@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 14:03:57 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/25 23:40:26 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/26 00:05:44 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	check_mv(float x, float y, t_data *data)
 		data->pos[1] = y;
 }
 
-void	mv_calc(float *x, float *y, float r, float speed)
+static void	mv_calc(float *x, float *y, float r, float speed)
 {
 	*x += cos(r) * speed;
 	*y += sin(r) * speed;
@@ -29,24 +29,30 @@ void	mv_calc(float *x, float *y, float r, float speed)
 void	mv_cara(t_data *data)
 {
 	const float	pi = 3.14159265358979323846;
-	float		x;
-	float		y;
+	float		pos[2];
+	float		speed;
 	t_mlx		*mlx;
 
+	speed = 1;
 	mlx = get_mlx();
 	if (!mlx)
 		return ;
-	x = data->pos[0];
-	y = data->pos[1];
+	pos[0] = data->pos[0];
+	pos[1] = data->pos[1];
+	if ((mlx->keys[0] && mlx->keys[1] && !mlx->keys[2] && !mlx->keys[3])
+		|| (mlx->keys[0] && mlx->keys[3] && !mlx->keys[1] && !mlx->keys[2])
+		|| (mlx->keys[2] && mlx->keys[3] && !mlx->keys[0] && !mlx->keys[1])
+		|| (mlx->keys[2] && mlx->keys[1] && !mlx->keys[0] && !mlx->keys[3]))
+		speed = 0.8;
 	if (mlx->keys[0] && !mlx->keys[2])
-		mv_calc(&x, &y, data->r, 0.02);
+		mv_calc(&pos[0], &pos[1], data->r, 0.02 * speed);
 	if (mlx->keys[2] && !mlx->keys[0])
-		mv_calc(&x, &y, data->r + pi, 0.015);
+		mv_calc(&pos[0], &pos[1], data->r + pi, 0.015 * speed);
 	if (mlx->keys[1] && !mlx->keys[3])
-		mv_calc(&x, &y, data->r - pi / 2, 0.01);
+		mv_calc(&pos[0], &pos[1], data->r - pi / 2, 0.01 * speed);
 	if (mlx->keys[3] && !mlx->keys[1])
-		mv_calc(&x, &y, data->r + pi / 2, 0.01);
-	check_mv(x, y, data);
+		mv_calc(&pos[0], &pos[1], data->r + pi / 2, 0.01 * speed);
+	check_mv(pos[0], pos[1], data);
 }
 
 void	mv_cam(t_data *data)
