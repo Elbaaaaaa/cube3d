@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 18:05:12 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:20:34 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/25 19:10:29 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	define_size(t_data *data, t_img *img)
 			i++;
 		}
 		if (i > size)
-			size = img->height / i / 4;
+			size = img->height / i / 3;
 		else
-			size = img->width / size / 4;
+			size = img->width / size / 3;
 	}
 	return (size);
 }

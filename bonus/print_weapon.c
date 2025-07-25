@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 21:00:31 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/25 18:43:26 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/25 19:32:31 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,33 @@ static void	print_cursor(t_img *img)
 	}
 }
 
+static int	animation(void)
+{
+	static float	pos[2] = {0, 0};
+	static int		x[8] = {0, 2, 5, 2, 0, -2, -5, -2};
+	static int		n = 0;
+	static int		t = 0;
+	t_data			*data;
+
+	data = get_data();
+	if (pos[0] != data->pos[0] || pos[1] != data->pos[1])
+	{
+		pos[0] = data->pos[0];
+		pos[1] = data->pos[1];
+		t++;
+		if (t % 15 == 0)
+			n = (n + 1) % 7;
+	}
+	return (x[n]);
+}
+
 void	draw_weapon(t_img *img, t_img *weapon)
 {
 	int			x;
 	int			y;
 	int			color;
 	const int	w = (img->width / 2) - (weapon->width / 2)
-		- get_mlx()->mv_weapon[1];
+		- get_mlx()->mv_weapon[1] + animation();
 	const int	h = img->height - (weapon->height * 0.8)
 		- get_mlx()->mv_weapon[0];
 
