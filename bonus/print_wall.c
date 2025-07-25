@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:25:57 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 15:25:21 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:10:48 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,29 @@
 
 static int	calc_fade(t_ray *ray, t_img *img, int i, int color)
 {
-	int		r;
-	int		g;
-	int		b;
+	int		c[3];
 	float	fade;
 	t_mlx	*mlx;
+	int		j;
 
 	mlx = get_mlx();
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
+	c[0] = (color >> 16) & 0xFF;
+	c[1] = (color >> 8) & 0xFF;
+	c[2] = color & 0xFF;
 	if (i < ray->wall_top || i > ray->wall_bottom)
 		fade = fabsf((float)(img->height / 2 - i) / (img->height / 2));
-	else
-	{
-		if (ray->wall_dis > 7)
-			ray->wall_dis = 7;
+	else if (ray->wall_dis < 7)
 		fade = (7 - ray->wall_dis) / 7;
-	}
-	r *= fade * (mlx->fire + 1);
-	g *= fade * (mlx->fire * 0.5 + 1);
-	b *= fade * (mlx->fire * 0.2 + 1);
-	color = (r << 16) | (g << 8) | b;
+	else
+		fade = 0;
+	c[0] *= fade * (mlx->fire + 1);
+	c[1] *= fade * (mlx->fire * 0.5 + 1);
+	c[2] *= fade * (mlx->fire * 0.2 + 1);
+	j = 0;
+	while (j < 3)
+		if (c[j++] > 255)
+			c[j - 1] = 255;
+	color = (c[0] << 16) | (c[1] << 8) | c[2];
 	return (color);
 }
 
