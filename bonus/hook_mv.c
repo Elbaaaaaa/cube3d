@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 14:03:57 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/25 17:13:03 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/25 23:40:26 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,32 @@ static void	check_mv(float x, float y, t_data *data)
 		data->pos[1] = y;
 }
 
+void	mv_calc(float *x, float *y, float r, float speed)
+{
+	*x += cos(r) * speed;
+	*y += sin(r) * speed;
+}
+
 void	mv_cara(t_data *data)
 {
-	float	x;
-	float	y;
-	t_mlx	*mlx;
+	const float	pi = 3.14159265358979323846;
+	float		x;
+	float		y;
+	t_mlx		*mlx;
 
 	mlx = get_mlx();
 	if (!mlx)
 		return ;
 	x = data->pos[0];
 	y = data->pos[1];
-	if (mlx->keys[0])
-	{
-		x += cos(data->r) * 0.02;
-		y += sin(data->r) * 0.02;
-	}
-	if (mlx->keys[2])
-	{
-		x -= cos(data->r) * 0.015;
-		y -= sin(data->r) * 0.015;
-	}
-	if (mlx->keys[1])
-	{
-		x += sin(data->r) * 0.01;
-		y -= cos(data->r) * 0.01;
-	}
-	if (mlx->keys[3])
-	{
-		x -= sin(data->r) * 0.01;
-		y += cos(data->r) * 0.01;
-	}
+	if (mlx->keys[0] && !mlx->keys[2])
+		mv_calc(&x, &y, data->r, 0.02);
+	if (mlx->keys[2] && !mlx->keys[0])
+		mv_calc(&x, &y, data->r + pi, 0.015);
+	if (mlx->keys[1] && !mlx->keys[3])
+		mv_calc(&x, &y, data->r - pi / 2, 0.01);
+	if (mlx->keys[3] && !mlx->keys[1])
+		mv_calc(&x, &y, data->r + pi / 2, 0.01);
 	check_mv(x, y, data);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 19:51:48 by ebella            #+#    #+#             */
-/*   Updated: 2025/07/24 19:52:49 by ebella           ###   ########.fr       */
+/*   Updated: 2025/07/25 23:40:52 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	key_press(int keycode, t_mlx *mlx)
 int	handle_loop(t_mlx *mlx)
 {
 	int	movement;
-	
+
 	movement = 0;
 	if (mlx->img->img == NULL)
 		return (0);
