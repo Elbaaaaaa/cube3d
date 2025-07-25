@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:20:45 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 19:54:51 by ebella           ###   ########.fr       */
+/*   Updated: 2025/07/25 18:42:29 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ void	free_data(void)
 t_mlx	*get_mlx(void)
 {
 	static t_mlx	*mlx = NULL;
-	int index;
+	int				index;
 
-	index = 0;
 	if (!mlx)
 	{
+		index = 0;
 		mlx = malloc(sizeof(t_mlx));
 		if (!mlx)
 			return (NULL);

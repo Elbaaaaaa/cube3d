@@ -6,7 +6,7 @@
 /*   By: adoireau <adoireau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 21:00:31 by adoireau          #+#    #+#             */
-/*   Updated: 2025/07/24 16:55:14 by adoireau         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:43:26 by adoireau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,34 @@ void	free_weapon(void)
 	}
 }
 
+static void	print_cursor(t_img *img)
+{
+	int	i;
+	int	x;
+	int	y;
+
+	i = 2;
+	x = img->width / 2;
+	y = img->height / 2;
+	while (i < 8)
+	{
+		set_pixel(img, x + i, y, 0xFF0000);
+		set_pixel(img, x - i, y, 0xFF0000);
+		set_pixel(img, x, y + i, 0xFF0000);
+		set_pixel(img, x, y - i, 0xFF0000);
+		i++;
+	}
+}
+
 void	draw_weapon(t_img *img, t_img *weapon)
 {
 	int			x;
 	int			y;
 	int			color;
-	const int	w = (img->width / 2) - (weapon->width / 2) - get_mlx()->mv_weapon[1];
-	const int	h = img->height - (weapon->height * 0.8) - get_mlx()->mv_weapon[0];
+	const int	w = (img->width / 2) - (weapon->width / 2)
+		- get_mlx()->mv_weapon[1];
+	const int	h = img->height - (weapon->height * 0.8)
+		- get_mlx()->mv_weapon[0];
 
 	y = 0;
 	while (y < weapon->height && y + h < img->height)
@@ -80,4 +101,5 @@ void	draw_weapon(t_img *img, t_img *weapon)
 		}
 		y++;
 	}
+	print_cursor(img);
 }
