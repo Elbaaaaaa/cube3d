@@ -37,7 +37,8 @@ BONUS_SRC = ./bonus/main.c \
 	./bonus/print_wall.c \
 	./bonus/print_map.c \
 	./bonus/print_weapon.c \
-	./bonus/hook_utils.c
+	./bonus/hook_utils.c \
+	./bonus/hook_mv.c
 
 OBJ = $(SRC:%.c=%.o)
 BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
